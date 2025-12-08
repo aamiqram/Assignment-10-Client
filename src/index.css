@@ -1,2 +1,328 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root {
+  --primary-blue: #007aff;
+  --primary-purple: #5856d6;
+  --success-green: #34c759;
+  --error-red: #ff3b30;
+  --warning-amber: #ff9500;
+  --neutral-gray: #8e8e93;
+}
+
+[data-theme="dark"] {
+  --color-base-100: #0b0b0f;
+  --color-base-200: #13141a;
+  --color-base-300: #1f2028;
+  --color-base-content: #f5f5f7;
+  --color-primary: #6366f1;
+  --color-secondary: #22c55e;
+  --color-accent: #ec4899;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-neutral: #8e8e93;
+}
+
+/* Enhanced Glass Morphism for dark mode */
+.glass-dark {
+  @apply backdrop-blur-xl bg-base-100/80 border border-base-300/50;
+}
+
+/* Base Styles */
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  transition: color 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* Enhanced Typography Scale */
+.text-hero {
+  @apply text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight;
+}
+
+.text-display {
+  @apply text-4xl md:text-5xl font-bold leading-tight tracking-tight;
+}
+
+.text-title {
+  @apply text-2xl md:text-3xl font-semibold leading-relaxed;
+}
+
+.text-subtitle {
+  @apply text-xl md:text-2xl font-semibold leading-relaxed;
+}
+
+.text-body {
+  @apply text-base md:text-lg leading-relaxed tracking-normal;
+}
+
+/* Enhanced Button Styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-2 px-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+}
+
+.btn-secondary {
+  @apply bg-base-200 border border-base-300 text-base-content hover:border-primary font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-base-300;
+}
+
+.btn-danger {
+  @apply bg-error hover:bg-error/90 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300;
+}
+
+.btn-success {
+  @apply bg-success hover:bg-success/90 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300;
+}
+
+/* Enhanced Glass Morphism */
+.glass-enhanced {
+  @apply backdrop-blur-lg bg-base-100/60 border border-base-300/30;
+}
+
+/* Transaction Card Animations */
+.transaction-card {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.transaction-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.transaction-card:hover::before {
+  left: 100%;
+}
+
+.transaction-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Enhanced Stat Card */
+.stat-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Fancy Button */
+.fancy-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fancy-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.fancy-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.fancy-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Spinner */
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--primary-blue);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  background: var(--color-base-100);
+}
+
+.loading-spinner {
+  border: 4px solid var(--color-base-300);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Custom gradient backgrounds */
+.fancy-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Enhanced responsive design */
+@media (max-width: 640px) {
+  .text-hero {
+    @apply text-4xl md:text-5xl;
+  }
+
+  .text-display {
+    @apply text-3xl md:text-4xl;
+  }
+}
+
+/* Better focus indicators for accessibility */
+.focus-ring:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-base-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-base-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-base-400);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.page-container {
+  padding-top: 5rem; /* 80px - adjust based on your navbar height */
+  min-height: calc(100vh - 4rem); /* Adjust as needed */
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    padding-top: 6rem; /* 96px for larger screens */
+  }
+}
