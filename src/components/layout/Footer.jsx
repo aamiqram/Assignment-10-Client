@@ -28,7 +28,7 @@ const Footer = () => {
                 FinEase
               </span>
             </Link>
-            <p className="text-sm text-base-content/70 leading-relaxed mb-4">
+            <p className="text-sm text-base-content/70 leading-relaxed mb-6 max-w-md">
               Your trusted companion for personal finance management. Take
               control of your money, track expenses, and achieve your financial
               goals.
@@ -37,7 +37,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-base-content">
+            <h3 className="font-semibold mb-4 text-base-content text-lg">
               Quick Links
             </h3>
             <ul className="space-y-2 ">
@@ -78,21 +78,23 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-semibold mb-4 text-base-content">Contact Us</h3>
+            <h3 className="font-semibold mb-4 text-base-content text-lg">
+              Contact Us
+            </h3>
             <ul className="space-y-3">
-              <li className="flex items-center space-x-3">
+              <li className="flex items-center gap-3">
                 <Mail size={16} className="text-primary" />
                 <span className="text-sm text-base-content/70">
                   support@finease.com
                 </span>
               </li>
-              <li className="flex items-center space-x-3">
+              <li className="flex items-center gap-3">
                 <Phone size={16} className="text-primary" />
                 <span className="text-sm text-base-content/70">
                   +1 (555) 123-4567
                 </span>
               </li>
-              <li className="flex items-center space-x-3">
+              <li className="flex items-center gap-3">
                 <MapPin size={16} className="text-primary" />
                 <span className="text-sm text-base-content/70">
                   123 Finance St, Money City
