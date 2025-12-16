@@ -36,7 +36,9 @@ const Home = () => {
       }
 
       try {
-        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const API_URL =
+          import.meta.env.VITE_API_URL ||
+          "https://finease-server-six.vercel.app";
         const response = await fetch(
           `${API_URL}/api/transactions/${user.email}`
         );
@@ -165,7 +167,7 @@ const Home = () => {
                       <p className="text-sm text-base-content/60 font-semibold">
                         Total Income
                       </p>
-                      <p className="text-3xl font-extrabold text-secondary">
+                      <p className="text-3xl font-extrabold text-green-500">
                         ${stats.income.toFixed(2)}
                       </p>
                     </div>
@@ -183,7 +185,7 @@ const Home = () => {
                       <p className="text-sm text-base-content/60 font-semibold">
                         Total Expenses
                       </p>
-                      <p className="text-3xl font-extrabold text-error">
+                      <p className="text-3xl font-extrabold text-red-500">
                         ${stats.expense.toFixed(2)}
                       </p>
                     </div>

@@ -132,8 +132,8 @@ const TransactionDetail = () => {
               <h1
                 className={`text-5xl font-extrabold ${
                   transaction.type === "Income"
-                    ? "text-secondary"
-                    : "text-error"
+                    ? "text-green-500"
+                    : "text-red-500"
                 }`}
               >
                 {transaction.type === "Income" ? "+" : "-"}$

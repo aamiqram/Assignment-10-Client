@@ -48,7 +48,8 @@ const MyTransactions = () => {
     if (result.isConfirmed) {
       try {
         const API_URL =
-          import.meta.env.VITE_API_URL || "https://server-complete.vercel.app";
+          import.meta.env.VITE_API_URL ||
+          "https://finease-server-six.vercel.app";
         const response = await fetch(`${API_URL}/api/transactions/${id}`, {
           method: "DELETE",
         });
@@ -207,14 +208,14 @@ const MyTransactions = () => {
                 {/* Category & Type Badge */}
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <p className="text-sm text-base-content/60 mb-1">
+                    <p className="text-lg text-base-content/60 mb-1">
                       {transaction.category}
                     </p>
                     <p
                       className={`text-2xl font-extrabold ${
                         transaction.type === "Income"
-                          ? "text-secondary"
-                          : "text-error"
+                          ? "text-green-500"
+                          : "text-red-500"
                       }`}
                     >
                       {transaction.type === "Income" ? "+" : "-"}$
@@ -233,12 +234,12 @@ const MyTransactions = () => {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm mb-3 line-clamp-2">
+                <p className="text-lg mb-3 line-clamp-2">
                   {transaction.description}
                 </p>
 
                 {/* Date */}
-                <p className="text-xs text-base-content/60 mb-4">
+                <p className="text-sm text-base-content/60 mb-4">
                   {new Date(transaction.date).toLocaleDateString()}
                 </p>
 
