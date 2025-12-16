@@ -29,7 +29,7 @@ const AddTransaction = () => {
 
     try {
       const API_URL =
-        import.meta.env.VITE_API_URL || "https://server-complete.vercel.app";
+        import.meta.env.VITE_API_URL || "https://finease-server-six.vercel.app";
       const response = await fetch(`${API_URL}/api/transactions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
