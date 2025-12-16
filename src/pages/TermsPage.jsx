@@ -2,7 +2,7 @@ import React from "react";
 
 const TermsPage = () => {
   return (
-    <div className="page-container p-4 md:p-6">
+    <div className="p-4 md:p-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-primary/20 to-secondary/20 mb-6">
@@ -54,7 +54,7 @@ const TermsPage = () => {
             understood these Terms & Conditions.
           </p>
           <div className="mt-6 flex justify-center gap-4">
-            <button className="btn-primary px-8">I Accept</button>
+            <button className="btn btn-primary px-8">I Accept</button>
           </div>
         </div>
       </div>

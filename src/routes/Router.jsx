@@ -1,46 +1,78 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-
-//Layout Components
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
-
-//Pages
 import Home from "../pages/Home";
-import NotFound from "../pages/NotFound";
-import TermsPage from "../pages/TermsPage";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import AddTransaction from "../pages/AddTransactions";
 import MyTransactions from "../pages/MyTransactions";
-import Profile from "../pages/Profile";
-import Reports from "../pages/Reports";
 import TransactionDetail from "../pages/TransactionDetail";
 import UpdateTransaction from "../pages/UpdateTransaction";
+import Profile from "../pages/Profile";
+import Reports from "../pages/Reports";
+import NotFound from "../pages/NotFound";
+import PrivateRoute from "./PrivateRoute";
+import TermsPage from "../pages/TermsPage";
 
-const Router = () => {
-  return (
-    <Routes>
-      {/* Routes with MainLayout (navbar & footer) */}
-      <Route element={<MainLayout />}>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/terms" element={<TermsPage />} />
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      { path: "/terms", element: <TermsPage /> },
+      {
+        path: "/add-transaction",
+        element: (
+          <PrivateRoute>
+            <AddTransaction />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-transactions",
+        element: (
+          <PrivateRoute>
+            <MyTransactions />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/transaction/:id",
+        element: (
+          <PrivateRoute>
+            <TransactionDetail />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/transaction/update/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTransaction />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/reports",
+        element: (
+          <PrivateRoute>
+            <Reports />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  { path: "*", element: <NotFound /> },
+]);
 
-        {/* Private Routes */}
-        <Route path="/add-transaction" element={<AddTransaction />} />
-        <Route path="/my-transactions" element={<MyTransactions />} />
-        <Route path="/transaction/:id" element={<TransactionDetail />} />
-        <Route path="/transaction/update/:id" element={<UpdateTransaction />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/reports" element={<Reports />} />
-      </Route>
-
-      {/* 404 Routes - No Layout */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
-};
-
-export default Router;
+export default router;

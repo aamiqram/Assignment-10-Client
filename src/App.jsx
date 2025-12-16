@@ -1,12 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import RouterComponent from "./routes/Router";
+import { RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import router from "./routes/Router";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <Router>
-      <RouterComponent />
-    </Router>
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </AuthProvider>
   );
 }
 

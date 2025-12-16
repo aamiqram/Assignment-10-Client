@@ -1,148 +1,265 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import {
-  TrendingUp,
-  ArrowUp,
-  ArrowDown,
-  Wallet,
-  Lightbulb,
-  ChartLine,
-  Plus,
-  BarChart3,
-} from "lucide-react";
-
-const budgetingTips = [
-  {
-    icon: "📝",
-    title: "Track Every Expense",
-    description:
-      "Record all your spending, no matter how small. This helps identify areas where you can cut back and optimize your budget.",
-    color: "primary",
-  },
-  {
-    icon: "📊",
-    title: "Follow the 50/30/20 Rule",
-    description:
-      "Allocate 50% to needs, 30% to wants, and 20% to savings and debt repayment for balanced financial health.",
-    color: "secondary",
-  },
-  {
-    icon: "🛡️",
-    title: "Build an Emergency Fund",
-    description:
-      "Aim to save 3-6 months of expenses for unexpected situations. Start small and build gradually.",
-    color: "accent",
-  },
-  {
-    icon: "🤖",
-    title: "Automate Your Finances",
-    description:
-      "Set up automatic transfers for savings and bill payments. This promotes discipline and ensures you don't miss payments.",
-    color: "accent",
-  },
-];
+  FaWallet,
+  FaArrowUp,
+  FaArrowDown,
+  FaLightbulb,
+  FaChartLine,
+  FaClipboardCheck,
+  FaChartPie,
+  FaShieldAlt,
+  FaBrain,
+  FaCalendarCheck,
+  FaSmile,
+  FaTrophy,
+  FaQuoteLeft,
+  FaRobot,
+} from "react-icons/fa";
 
 const Home = () => {
+  const { user } = useAuth();
+  const [stats, setStats] = useState({
+    balance: 0,
+    income: 0,
+    expense: 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user's financial stats if logged in
+  useEffect(() => {
+    const fetchStats = async () => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const response = await fetch(
+          `${API_URL}/api/transactions/${user.email}`
+        );
+        const transactions = await response.json();
+
+        const totalIncome = transactions
+          .filter((t) => t.type === "Income")
+          .reduce((sum, t) => sum + t.amount, 0);
+
+        const totalExpense = transactions
+          .filter((t) => t.type === "Expense")
+          .reduce((sum, t) => sum + t.amount, 0);
+
+        setStats({
+          balance: totalIncome - totalExpense,
+          income: totalIncome,
+          expense: totalExpense,
+        });
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, [user]);
+
   return (
-    <div className="min-h-screen relative overflow-hidden bg-linear-to-br from-base-100 via-base-100 to-base-200 container mx-auto max-w-7xl">
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl floating"></div>
-        <div
-          className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-3xl floating"
-          style={{ animationDelay: "2s" }}
-        ></div>
-        <div
-          className="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] bg-success/5 rounded-full blur-3xl floating"
-          style={{ animationDelay: "4s" }}
-        ></div>
-      </div>
+    <div className="bg-base-100">
+      {/* Decorative Background Orbs */}
+      <div className="fixed top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="fixed top-[20%] right-[10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="fixed bottom-[10%] left-[5%] w-[350px] h-[350px] bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Hero Section */}
-      <section className="relative pt-10 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          {/* Enhanced Badge */}
-          <div className="inline-flex items-center px-6 py-3 glass-enhanced rounded-full mb-8">
-            <TrendingUp className="w-5 h-5 text-primary mr-2" />
-            <span className="text-primary font-semibold text-sm">
-              Smart Financial Management
+      <section className="relative z-10 px-6 py-24 md:py-32 text-center">
+        <div className="max-w-4xl mx-auto">
+          {/* Badge */}
+          <div className="inline-block mb-6 px-6 py-2 bg-primary/10 border border-primary/20 rounded-full backdrop-blur-sm">
+            <span className="text-sm font-semibold text-primary">
+              ✨ Smart Financial Management
             </span>
           </div>
 
-          {/* Enhanced Main Heading */}
-          <h1 className="text-hero text-base-content mb-6">
-            <span className="block">All of your finances,</span>
-            <span className="block bg-linear-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-              all in one place
-            </span>
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight bg-gradient-to-r from-base-content to-base-content/70 bg-clip-text text-transparent">
+            All of your finances, all in one place
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-subtitle text-base-content/80 mb-12 max-w-4xl mx-auto leading-relaxed">
+          {/* Subheading */}
+          <p className="text-lg md:text-xl text-base-content/70 mb-10 max-w-2xl mx-auto leading-relaxed">
             Track expenses, set budgets, and achieve your financial goals with
             our powerful yet simple platform designed for modern life
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              to="/add-transaction"
-              className="btn-primary group flex items-center gap-3"
-            >
-              <Plus className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span>Add Transaction</span>
-            </Link>
-            <Link
-              to="/reports"
-              className="btn-secondary group flex items-center gap-3"
-            >
-              <BarChart3 className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span>View Reports</span>
-            </Link>
-            <Link to="/register" className="btn-primary">
-              Get Started Free
-            </Link>
-            <Link to="/login" className="btn-secondary">
-              Sign In
-            </Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            {user ? (
+              <>
+                <Link
+                  to="/add-transaction"
+                  className="btn btn-primary btn-lg gap-2 shadow-lg hover:shadow-xl transition-all"
+                >
+                  <FaArrowUp />
+                  Add Transaction
+                </Link>
+                <Link to="/reports" className="btn btn-outline btn-lg gap-2">
+                  <FaChartLine />
+                  View Reports
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="btn btn-primary btn-lg shadow-lg hover:shadow-xl transition-all"
+                >
+                  Get Started Free
+                </Link>
+                <Link to="/login" className="btn btn-outline btn-lg">
+                  Sign In
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Features Sections */}
-      <section className="relative py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Budgeting Tips Section */}
-            <div className="bg-base-100 border border-base-300 rounded-3xl p-12 relative overflow-hidden shadow-xl">
-              <div className="absolute -top-32 -right-32 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-linear-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/25">
-                  <Lightbulb className="text-white w-7 h-7" />
+      {/* Stats Section (Only show if user is logged in) */}
+      {user && (
+        <section className="relative z-10 px-6 pb-20">
+          <div className="max-w-6xl mx-auto">
+            {loading ? (
+              <div className="flex justify-center py-12">
+                <span className="loading loading-spinner loading-lg"></span>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Balance Card */}
+                <div className="stat-card bg-base-100 rounded-3xl p-8 shadow-xl border border-base-300 relative overflow-hidden">
+                  <div className="absolute top-[-50px] right-[-50px] w-[150px] h-[150px] bg-primary/10 rounded-full blur-2xl"></div>
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-lg">
+                      <FaWallet size={28} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-base-content/60 font-semibold">
+                        Total Balance
+                      </p>
+                      <p className="text-3xl font-extrabold">
+                        ${stats.balance.toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <h2 className="text-display text-base-content mb-4">
+                {/* Income Card */}
+                <div className="stat-card bg-base-100 rounded-3xl p-8 shadow-xl border border-base-300 relative overflow-hidden">
+                  <div className="absolute top-[-50px] right-[-50px] w-[150px] h-[150px] bg-secondary/10 rounded-full blur-2xl"></div>
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-green-600 flex items-center justify-center text-white shadow-lg">
+                      <FaArrowUp size={28} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-base-content/60 font-semibold">
+                        Total Income
+                      </p>
+                      <p className="text-3xl font-extrabold text-secondary">
+                        ${stats.income.toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expense Card */}
+                <div className="stat-card bg-base-100 rounded-3xl p-8 shadow-xl border border-base-300 relative overflow-hidden">
+                  <div className="absolute top-[-50px] right-[-50px] w-[150px] h-[150px] bg-error/10 rounded-full blur-2xl"></div>
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-error to-red-600 flex items-center justify-center text-white shadow-lg">
+                      <FaArrowDown size={28} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-base-content/60 font-semibold">
+                        Total Expenses
+                      </p>
+                      <p className="text-3xl font-extrabold text-error">
+                        ${stats.expense.toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Tips and Planning Section */}
+      <section className="bg-base-200 py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Budgeting Tips */}
+            <div className="bg-base-100 rounded-3xl p-10 shadow-xl border border-base-300 relative overflow-hidden">
+              <div className="absolute top-[-100px] right-[-100px] w-[250px] h-[250px] bg-primary/5 rounded-full blur-3xl"></div>
+
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center mb-6 shadow-lg">
+                  <FaLightbulb size={28} className="text-white" />
+                </div>
+
+                <h2 className="text-3xl font-extrabold mb-4">
                   Smart Budgeting Tips
                 </h2>
-                <p className="text-body text-base-content/70 mb-8">
+                <p className="text-base-content/70 mb-8">
                   Master your money with these proven strategies for financial
                   success
                 </p>
 
                 <div className="space-y-6">
-                  {budgetingTips.map((tip, index) => (
+                  {[
+                    {
+                      icon: FaClipboardCheck,
+                      title: "Track Every Expense",
+                      desc: "Record all your spending, no matter how small. This helps identify areas where you can cut back and optimize your budget.",
+                      color: "text-blue-600",
+                    },
+                    {
+                      icon: FaChartPie,
+                      title: "Follow the 50/30/20 Rule",
+                      desc: "Allocate 50% to needs, 30% to wants, and 20% to savings and debt repayment for balanced financial health.",
+                      color: "text-purple-600",
+                    },
+                    {
+                      icon: FaShieldAlt,
+                      title: "Build an Emergency Fund",
+                      desc: "Aim to save 3-6 months of expenses for unexpected situations. Start small and build gradually.",
+                      color: "text-pink-600",
+                    },
+                    {
+                      icon: FaRobot,
+                      title: "Automate Your Finances",
+                      desc: "Set up automatic transfers for savings and bill payments. This promotes discipline and ensures you don't miss payments.",
+                      color: "text-pink-600",
+                    },
+                  ].map((tip, idx) => (
                     <div
-                      key={index}
-                      className="flex gap-6 p-6 bg-base-200 border border-base-300 rounded-2xl hover:border-primary transition-all duration-300 hover:translate-x-2 group"
+                      key={idx}
+                      className="flex gap-4 p-4 bg-base-200 rounded-2xl border border-base-300 hover:border-primary transition-all hover:translate-x-2"
                     >
-                      <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                        {tip.icon}
+                      <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-base-100 flex items-center justify-center relative overflow-hidden">
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-50`}
+                        ></div>
+                        <tip.icon
+                          size={24}
+                          className={tip.color + " relative z-10"}
+                        />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-base-content mb-2 text-lg">
-                          {tip.title}
-                        </h3>
-                        <p className="text-base-content/70 leading-relaxed">
-                          {tip.description}
+                      <div>
+                        <h3 className="font-bold mb-2">{tip.title}</h3>
+                        <p className="text-sm text-base-content/70 leading-relaxed">
+                          {tip.desc}
                         </p>
                       </div>
                     </div>
@@ -151,67 +268,74 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Financial Planning Section */}
-            <div className="bg-base-100 border border-base-300 rounded-3xl p-12 relative overflow-hidden shadow-xl">
-              <div className="absolute -top-32 -left-32 w-64 h-64 bg-success/5 rounded-full blur-3xl"></div>
+            {/* Financial Planning */}
+            <div className="bg-base-100 rounded-3xl p-10 shadow-xl border border-base-300 relative overflow-hidden">
+              <div className="absolute top-[-100px] left-[-100px] w-[250px] h-[250px] bg-secondary/5 rounded-full blur-3xl"></div>
+
               <div className="relative z-10">
-                <div className="w-16 h-16 bg-linear-to-br from-success to-success/80 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-success/25">
-                  <ChartLine className="text-white w-7 h-7" />
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-green-600 flex items-center justify-center mb-6 shadow-lg">
+                  <FaChartLine size={28} className="text-white" />
                 </div>
 
-                <h2 className="text-display text-base-content mb-4">
+                <h2 className="text-3xl font-extrabold mb-4">
                   Why Financial Planning Matters
                 </h2>
-                <p className="text-body text-base-content/70 mb-8 leading-relaxed">
+                <p className="text-base-content/70 mb-8 leading-relaxed">
                   Financial planning is essential for achieving long-term
                   stability and peace of mind. Take control of your financial
                   future today.
                 </p>
 
                 <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-4 p-6 bg-base-200 border border-base-300 rounded-xl hover:border-success transition-all duration-300 group">
-                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary to-primary/80 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white text-xl">🧠</span>
+                  {[
+                    {
+                      icon: FaBrain,
+                      title:
+                        "Make informed decisions about spending and saving",
+                      gradient: "from-blue-500 to-blue-600",
+                    },
+                    {
+                      icon: FaCalendarCheck,
+                      title: "Prepare for major life events and emergencies",
+                      gradient: "from-purple-500 to-purple-600",
+                    },
+                    {
+                      icon: FaSmile,
+                      title: "Reduce financial stress and anxiety",
+                      gradient: "from-pink-500 to-pink-600",
+                    },
+                    {
+                      icon: FaTrophy,
+                      title: "Build wealth and achieve financial independence",
+                      gradient: "from-orange-500 to-orange-600",
+                    },
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-4 p-4 bg-base-200 rounded-2xl border border-base-300 hover:scale-[1.02] hover:shadow-lg transition-all relative overflow-hidden"
+                    >
+                      <div
+                        className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${item.gradient}`}
+                      ></div>
+                      <div
+                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0 shadow-md`}
+                      >
+                        <item.icon size={24} className="text-white" />
+                      </div>
+                      <span className="font-semibold leading-snug">
+                        {item.title}
+                      </span>
                     </div>
-                    <span className="text-base-content font-semibold flex-1">
-                      Make informed decisions about spending and saving
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 p-6 bg-base-200 border border-base-300 rounded-xl hover:border-secondary transition-all duration-300 group">
-                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-secondary to-secondary/80 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white text-xl">📅</span>
-                    </div>
-                    <span className="text-base-content font-semibold flex-1">
-                      Prepare for major life events and emergencies
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 p-6 bg-base-200 border border-base-300 rounded-xl hover:border-accent transition-all duration-300 group">
-                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-accent to-accent/80 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white text-xl">😊</span>
-                    </div>
-                    <span className="text-base-content font-semibold flex-1">
-                      Reduce financial stress and anxiety
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 p-6 bg-base-200 border border-base-300 rounded-xl hover:border-warning transition-all duration-300 group">
-                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-warning to-warning/80 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white text-xl">🏆</span>
-                    </div>
-                    <span className="text-base-content font-semibold flex-1">
-                      Build wealth and achieve financial independence
-                    </span>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Enhanced Quote Box */}
-                <div className="p-6 bg-success/10 border border-success/20 rounded-2xl">
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl text-success">🧑🏻‍🏫</span>
-                    <p className="text-base-content text-lg font-medium italic leading-relaxed">
-                      "A goal without a plan is just a wish. Start planning your
-                      financial future today."
-                    </p>
-                  </div>
+                {/* Quote Box */}
+                <div className="p-6 bg-secondary/10 border border-secondary/20 rounded-2xl relative">
+                  <FaQuoteLeft className="text-secondary/40 text-2xl mb-3" />
+                  <p className="text-base-content font-medium italic leading-relaxed">
+                    "A goal without a plan is just a wish. Start planning your
+                    financial future today."
+                  </p>
                 </div>
               </div>
             </div>
