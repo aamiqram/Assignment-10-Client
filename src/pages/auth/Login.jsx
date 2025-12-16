@@ -68,7 +68,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Decorative Background Elements */}
       <div className="fixed top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="fixed bottom-[-100px] right-[-100px] w-[400px] h-[400px] bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -76,10 +76,10 @@ const Login = () => {
       <div className="max-w-md w-full bg-base-100 p-8 md:p-10 rounded-3xl shadow-2xl border border-base-300 relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-block p-4 bg-gradient-to-br from-primary/20 to-blue-600/20 rounded-2xl mb-4">
+          <div className="inline-block p-4 bg-linear-to-br from-primary/20 to-blue-600/20 rounded-2xl mb-4">
             <FaLock size={32} className="text-primary" />
           </div>
-          <h2 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-extrabold mb-2 bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent">
             Welcome Back
           </h2>
           <p className="text-base-content/60">Log in to manage your finances</p>

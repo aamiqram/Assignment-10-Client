@@ -83,7 +83,7 @@ const Home = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight bg-gradient-to-r from-base-content to-base-content/70 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight bg-linear-to-r from-base-content to-base-content/70 bg-clip-text text-transparent">
             All of your finances, all in one place
           </h1>
 
@@ -140,7 +140,7 @@ const Home = () => {
                 <div className="stat-card bg-base-100 rounded-3xl p-8 shadow-xl border border-base-300 relative overflow-hidden">
                   <div className="absolute top-[-50px] right-[-50px] w-[150px] h-[150px] bg-primary/10 rounded-full blur-2xl"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-lg">
+                    <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-lg">
                       <FaWallet size={28} />
                     </div>
                     <div>
@@ -158,7 +158,7 @@ const Home = () => {
                 <div className="stat-card bg-base-100 rounded-3xl p-8 shadow-xl border border-base-300 relative overflow-hidden">
                   <div className="absolute top-[-50px] right-[-50px] w-[150px] h-[150px] bg-secondary/10 rounded-full blur-2xl"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-green-600 flex items-center justify-center text-white shadow-lg">
+                    <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-secondary to-green-600 flex items-center justify-center text-white shadow-lg">
                       <FaArrowUp size={28} />
                     </div>
                     <div>
@@ -176,7 +176,7 @@ const Home = () => {
                 <div className="stat-card bg-base-100 rounded-3xl p-8 shadow-xl border border-base-300 relative overflow-hidden">
                   <div className="absolute top-[-50px] right-[-50px] w-[150px] h-[150px] bg-error/10 rounded-full blur-2xl"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-error to-red-600 flex items-center justify-center text-white shadow-lg">
+                    <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-error to-red-600 flex items-center justify-center text-white shadow-lg">
                       <FaArrowDown size={28} />
                     </div>
                     <div>
@@ -204,7 +204,7 @@ const Home = () => {
               <div className="absolute top-[-100px] right-[-100px] w-[250px] h-[250px] bg-primary/5 rounded-full blur-3xl"></div>
 
               <div className="relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center mb-6 shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-purple-600 flex items-center justify-center mb-6 shadow-lg">
                   <FaLightbulb size={28} className="text-white" />
                 </div>
 
@@ -247,9 +247,9 @@ const Home = () => {
                       key={idx}
                       className="flex gap-4 p-4 bg-base-200 rounded-2xl border border-base-300 hover:border-primary transition-all hover:translate-x-2"
                     >
-                      <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-base-100 flex items-center justify-center relative overflow-hidden">
+                      <div className="shrink-0 w-14 h-14 rounded-xl bg-base-100 flex items-center justify-center relative overflow-hidden">
                         <div
-                          className={`absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-50`}
+                          className={`absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-50`}
                         ></div>
                         <tip.icon
                           size={24}
@@ -273,7 +273,7 @@ const Home = () => {
               <div className="absolute top-[-100px] left-[-100px] w-[250px] h-[250px] bg-secondary/5 rounded-full blur-3xl"></div>
 
               <div className="relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-green-600 flex items-center justify-center mb-6 shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-secondary to-green-600 flex items-center justify-center mb-6 shadow-lg">
                   <FaChartLine size={28} className="text-white" />
                 </div>
 
@@ -315,10 +315,10 @@ const Home = () => {
                       className="flex items-center gap-4 p-4 bg-base-200 rounded-2xl border border-base-300 hover:scale-[1.02] hover:shadow-lg transition-all relative overflow-hidden"
                     >
                       <div
-                        className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${item.gradient}`}
+                        className={`absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b ${item.gradient}`}
                       ></div>
                       <div
-                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0 shadow-md`}
+                        className={`w-14 h-14 rounded-xl bg-linear-to-br ${item.gradient} flex items-center justify-center shrink-0 shadow-md`}
                       >
                         <item.icon size={24} className="text-white" />
                       </div>

@@ -40,7 +40,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-2xl font-extrabold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent"
+            className="text-2xl font-extrabold bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent"
           >
             FinEase
           </Link>
